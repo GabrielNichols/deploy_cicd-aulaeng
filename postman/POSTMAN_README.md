@@ -31,7 +31,7 @@ Este guia explica como testar a API Flask usando as coleções do Postman inclu�
 ### Para Produção:
 1. No Postman, clique no dropdown de environments (canto superior direito)
 2. Selecione **"Flask CI/CD API - Production"**
-3. A URL base será automaticamente configurada para: `https://deploy-cicd-hadua2dxe6g2fcbc.azurewebsites.net`
+3. A URL base será automaticamente configurada para: `https://deploy-cicd-hadua2dxe6g2fcbc.eastus2-01.azurewebsites.net`
 
 ### Para Desenvolvimento Local:
 1. Selecione **"Flask CI/CD API - Local Development"**

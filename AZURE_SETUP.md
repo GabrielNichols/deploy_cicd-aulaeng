@@ -26,7 +26,7 @@ Este documento explica como configurar o deploy automático usando apenas o publ
 Antes de colar no GitHub, verifique se o XML contém:
 - `publishUrl` contendo `deploy-cicd-hadua2dxe6g2fcbc.scm.azurewebsites.net`
 - `userName` e `userPWD` válidos
-- `destinationAppUrl` apontando para `https://deploy-cicd-hadua2dxe6g2fcbc.azurewebsites.net`
+- `destinationAppUrl` apontando para `https://deploy-cicd-hadua2dxe6g2fcbc.eastus2-01.azurewebsites.net`
 - `msdeploySite` igual a `deploy-cicd`
 
 ### 3. Configurar Secret no GitHub

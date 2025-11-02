@@ -206,9 +206,9 @@ jobs:
         RETRY_COUNT=0
 
         while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
-          if curl -f -s "https://deploy-cicd-hadua2dxe6g2fcbc.azurewebsites.net/api/health" > /dev/null; then
+          if curl -f -s "https://deploy-cicd-hadua2dxe6g2fcbc.eastus2-01.azurewebsites.net/api/health" > /dev/null; then
             echo "✅ Deployment successful! App is responding."
-            echo "🌐 URL: https://deploy-cicd-hadua2dxe6g2fcbc.azurewebsites.net"
+            echo "🌐 URL: https://deploy-cicd-hadua2dxe6g2fcbc.eastus2-01.azurewebsites.net"
             exit 0
           else
             echo "⏳ Waiting for deployment... (attempt $((RETRY_COUNT+1))/$MAX_RETRIES)"
