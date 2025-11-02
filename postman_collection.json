@@ -1,0 +1,159 @@
+{
+  "info": {
+    "name": "Flask CI/CD API - Production",
+    "description": "API endpoints for the Flask Hello World application with CI/CD deployment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "health"
+          ]
+        },
+        "description": "Check if the API is healthy and running"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/users",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        },
+        "description": "Retrieve all users from the API"
+      },
+      "response": []
+    },
+    {
+      "name": "Get User by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/users/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "1"
+          ]
+        },
+        "description": "Retrieve a specific user by ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/products",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "products"
+          ]
+        },
+        "description": "Retrieve all products from the API"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Product by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/products/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "products",
+            "1"
+          ]
+        },
+        "description": "Retrieve a specific product by ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Echo Test",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Hello from Postman!\",\n  \"test\": true,\n  \"timestamp\": \"{{current_timestamp}}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/echo",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "echo"
+          ]
+        },
+        "description": "Test POST endpoint with JSON data"
+      },
+      "response": []
+    },
+    {
+      "name": "Home Page",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            ""
+          ]
+        },
+        "description": "Access the main home page of the Flask application"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "current_timestamp",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
