@@ -61,30 +61,40 @@ Echo endpoint para testes
 }
 ```
 
-## Configuração do CI/CD
+## 🚀 CI/CD Pipeline Inteligente
 
-O projeto está configurado com GitHub Actions para deploy automático no Azure App Service.
+O projeto possui um pipeline avançado de CI/CD com jobs separados e otimizações:
+
+### 📋 Jobs do Pipeline:
+
+1. **🔨 Build & Lint** - Compila, testa sintaxe e faz linting
+2. **🧪 Integration Tests** - Testa endpoints da API em tempo real
+3. **🚀 Deploy** - Só executa se os testes passarem (apenas em main)
+
+### ⚡ Otimizações:
+
+- **Cache inteligente** de dependências Python
+- **Deploy condicional** - só acontece em push para main
+- **Path filtering** - ignora mudanças em docs
+- **Testes de integração** - valida funcionamento real da API
+- **Verificação pós-deploy** - confirma que a app está rodando
 
 > 📖 **Para instruções detalhadas de configuração do Azure, consulte [AZURE_SETUP.md](AZURE_SETUP.md)**
 
 ### Pré-requisitos para deploy:
 
 1. Criar repositório no GitHub
-2. Configurar o secret `AZURE_WEBAPP_PUBLISH_PROFILE` no GitHub:
-   - Vá para **Settings** > **Secrets and variables** > **Actions**
-   - Clique em **New repository secret**
-   - **Name**: `AZURE_WEBAPP_PUBLISH_PROFILE`
-   - **Value**: Cole o conteúdo do publish profile do seu Azure App Service
-3. Push do código para a branch main dispara o deploy automático
+2. Configurar o secret `AZURE_WEBAPP_PUBLISH_PROFILE`:
+   - **Settings** > **Secrets and variables** > **Actions**
+   - **New secret**: `AZURE_WEBAPP_PUBLISH_PROFILE`
+   - **Value**: Publish profile XML do Azure App Service
+3. Push para main dispara automaticamente: Build → Test → Deploy
 
 #### Como obter o Publish Profile:
 
-1. Vá para o [Azure Portal](https://portal.azure.com)
-2. Procure pelo seu App Service: `deploy-cicd-hadua2dxe6g2fcbc`
-3. No menu lateral esquerdo, clique em **Get publish profile**
-4. Baixe o arquivo `.PublishSettings`
-5. Abra o arquivo e copie todo o conteúdo XML
-6. Cole como valor do secret no GitHub
+1. [Azure Portal](https://portal.azure.com) → App Service `deploy-cicd-hadua2dxe6g2fcbc`
+2. **Get publish profile** → Download `.PublishSettings`
+3. Copiar conteúdo XML completo → Colar no secret GitHub
 
 ## Como executar localmente
 
