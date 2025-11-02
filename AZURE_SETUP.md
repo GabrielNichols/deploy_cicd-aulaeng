@@ -17,10 +17,18 @@ Este documento explica como configurar o deploy automático usando apenas o publ
 2. Procure pelo seu App Service: `deploy-cicd-hadua2dxe6g2fcbc`
 3. No menu lateral esquerdo, clique em **Get publish profile**
 4. Baixe o arquivo `.PublishSettings`
-5. Abra o arquivo com um editor de texto
+5. Abra o arquivo com um editor de texto (Notepad++, VS Code, etc.)
 6. **Copie TODO o conteúdo XML** (é um arquivo grande com várias linhas)
+7. ⚠️ **IMPORTANTE**: Certifique-se de copiar do `<publishData>` até `</publishData>`
 
-### 2. Configurar Secret no GitHub
+### 2. Verificar o Publish Profile
+
+Antes de colar no GitHub, verifique se o XML contém:
+- `publishUrl` com seu domínio Azure
+- `userName` e `userPWD` válidos
+- `destinationAppUrl` apontando para `https://deploy-cicd-hadua2dxe6g2fcbc.azurewebsites.net`
+
+### 3. Configurar Secret no GitHub
 
 1. Vá para seu repositório no GitHub
 2. Clique em **Settings** > **Secrets and variables** > **Actions**
@@ -28,6 +36,19 @@ Este documento explica como configurar o deploy automático usando apenas o publ
 4. Configure:
    - **Name**: `AZURE_WEBAPP_PUBLISH_PROFILE`
    - **Value**: Cole o conteúdo XML completo do arquivo .PublishSettings
+
+### 4. ⚠️ Troubleshooting Publish Profile
+
+Se der erro "Publish profile is invalid":
+
+1. **Baixe novamente** o publish profile do Azure Portal
+2. **Verifique se copiou tudo** - às vezes editores cortam o final
+3. **Confirme o app name** no workflow: `deploy-cicd-hadua2dxe6g2fcbc`
+4. **Teste o publish profile** localmente (opcional):
+   ```bash
+   # Instale Azure CLI
+   az webapp deployment source config-zip --resource-group Engenharia_de_Software --name deploy-cicd-hadua2dxe6g2fcbc --src <arquivo-zip>
+   ```
 
 ### 3. Testar o Deploy
 
