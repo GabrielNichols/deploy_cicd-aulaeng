@@ -4,9 +4,9 @@ Este documento explica como configurar o deploy automático usando apenas o publ
 
 ## ✅ Seu Ambiente Azure
 
-- **App Service**: `deploy-cicd-hadua2dxe6g2fcbc`
+- **App Service**: `deploy-cicd` (nome interno)
+- **URL completa**: https://deploy-cicd-hadua2dxe6g2fcbc.eastus2-01.azurewebsites.net
 - **Resource Group**: `Engenharia_de_Software`
-- **URL**: https://deploy-cicd-hadua2dxe6g2fcbc.eastus2-01.azurewebsites.net
 - **Subscription ID**: `012f0e50-fa82-4ade-a8f6-c82683e6cb90`
 
 ## 📋 Configuração Necessária
@@ -14,7 +14,7 @@ Este documento explica como configurar o deploy automático usando apenas o publ
 ### 1. Obter o Publish Profile
 
 1. Vá para o [Azure Portal](https://portal.azure.com)
-2. Procure pelo seu App Service: `deploy-cicd-hadua2dxe6g2fcbc`
+2. Procure pelo seu App Service: `deploy-cicd` (ou acesse diretamente pela URL)
 3. No menu lateral esquerdo, clique em **Get publish profile**
 4. Baixe o arquivo `.PublishSettings`
 5. Abra o arquivo com um editor de texto (Notepad++, VS Code, etc.)
@@ -24,9 +24,10 @@ Este documento explica como configurar o deploy automático usando apenas o publ
 ### 2. Verificar o Publish Profile
 
 Antes de colar no GitHub, verifique se o XML contém:
-- `publishUrl` com seu domínio Azure
+- `publishUrl` contendo `deploy-cicd-hadua2dxe6g2fcbc.scm.azurewebsites.net`
 - `userName` e `userPWD` válidos
 - `destinationAppUrl` apontando para `https://deploy-cicd-hadua2dxe6g2fcbc.azurewebsites.net`
+- `msdeploySite` igual a `deploy-cicd`
 
 ### 3. Configurar Secret no GitHub
 
@@ -43,11 +44,11 @@ Se der erro "Publish profile is invalid":
 
 1. **Baixe novamente** o publish profile do Azure Portal
 2. **Verifique se copiou tudo** - às vezes editores cortam o final
-3. **Confirme o app name** no workflow: `deploy-cicd-hadua2dxe6g2fcbc`
+3. **Confirme o app name** no workflow: `deploy-cicd`
 4. **Teste o publish profile** localmente (opcional):
    ```bash
    # Instale Azure CLI
-   az webapp deployment source config-zip --resource-group Engenharia_de_Software --name deploy-cicd-hadua2dxe6g2fcbc --src <arquivo-zip>
+   az webapp deployment source config-zip --resource-group Engenharia_de_Software --name deploy-cicd --src <arquivo-zip>
    ```
 
 ### 3. Testar o Deploy

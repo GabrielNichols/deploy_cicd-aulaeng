@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: deploy-cicd-hadua2dxe6g2fcbc
+  AZURE_WEBAPP_NAME: deploy-cicd
   PYTHON_VERSION: '3.12'
 
 jobs:

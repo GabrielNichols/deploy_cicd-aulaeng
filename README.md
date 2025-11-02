@@ -92,9 +92,10 @@ O projeto possui um pipeline avançado de CI/CD com jobs separados e otimizaçõ
 
 #### Como obter o Publish Profile:
 
-1. [Azure Portal](https://portal.azure.com) → App Service `deploy-cicd-hadua2dxe6g2fcbc`
+1. [Azure Portal](https://portal.azure.com) → App Service `deploy-cicd`
 2. **Get publish profile** → Download `.PublishSettings`
 3. Copiar conteúdo XML completo → Colar no secret GitHub
+4. ⚠️ **Importante**: O nome interno do app é `deploy-cicd` (não o nome completo da URL)
 
 ## Como executar localmente
 
