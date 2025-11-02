@@ -68,8 +68,22 @@ O projeto está configurado com GitHub Actions para deploy automático no Azure 
 ### Pré-requisitos para deploy:
 
 1. Criar repositório no GitHub
-2. Configurar secret `AZURE_WEBAPP_PUBLISH_PROFILE` no GitHub com o publish profile do Azure App Service
+2. Configurar os seguintes secrets no GitHub (Settings > Secrets and variables > Actions):
+   - `AZURE_CREDENTIALS`: Credenciais de service principal do Azure (JSON format)
+   - `AZURE_RESOURCE_GROUP`: Nome do resource group onde está o App Service
+   - `AZURE_WEBAPP_PUBLISH_PROFILE`: Publish profile do Azure App Service
 3. Push do código para a branch main dispara o deploy automático
+
+#### Como criar as credenciais do Azure:
+
+1. No Azure CLI, execute:
+   ```bash
+   az ad sp create-for-rbac --name "GitHubActionsDeploy" --role contributor --scopes /subscriptions/YOUR_SUBSCRIPTION_ID/resourceGroups/YOUR_RESOURCE_GROUP --sdk-auth
+   ```
+
+2. Copie o output JSON e adicione como secret `AZURE_CREDENTIALS`
+
+3. Adicione o nome do seu resource group como secret `AZURE_RESOURCE_GROUP`
 
 ## Como executar localmente
 
