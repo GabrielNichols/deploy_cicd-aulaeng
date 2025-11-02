@@ -65,6 +65,8 @@ Echo endpoint para testes
 
 O projeto está configurado com GitHub Actions para deploy automático no Azure App Service.
 
+> 📖 **Para instruções detalhadas de configuração do Azure, consulte [AZURE_SETUP.md](AZURE_SETUP.md)**
+
 ### Pré-requisitos para deploy:
 
 1. Criar repositório no GitHub
