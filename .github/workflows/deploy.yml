@@ -6,10 +6,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  AZURE_WEBAPP_NAME: deploy-cicd-hadua2dxe6g2fcbc
-  AZURE_WEBAPP_PACKAGE_PATH: '.'
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -33,31 +29,10 @@ jobs:
         # Add your test commands here if you have tests
         echo "No tests configured yet"
 
-    - name: Azure Login
-      uses: azure/login@v2
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Verify Azure Web App exists
-      run: |
-        echo "Verifying Azure Web App exists..."
-        az webapp show --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --query "[name,id]" -o json || {
-          echo "❌ Azure Web App '${{ env.AZURE_WEBAPP_NAME }}' not found or access denied"
-          echo "Please check:"
-          echo "1. The web app name is correct"
-          echo "2. The AZURE_CREDENTIALS secret has the right permissions"
-          echo "3. The AZURE_RESOURCE_GROUP secret is set correctly"
-          exit 1
-        }
-
-    - name: Check Azure CLI version
-      run: |
-        az --version
-
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v3
       with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        app-name: 'deploy-cicd-hadua2dxe6g2fcbc'
         slot-name: 'production'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        package: .

@@ -1,67 +1,37 @@
-# Configuração do Azure para CI/CD
+# Configuração Simples do Azure para CI/CD
 
-Este documento explica como configurar o Azure para o deploy automático via GitHub Actions.
+Este documento explica como configurar o deploy automático usando apenas o publish profile.
 
-## 1. Verificar se você tem o App Service
+## ✅ Seu Ambiente Azure
 
-Você já criou o App Service: `deploy-cicd-hadua2dxe6g2fcbc`
+- **App Service**: `deploy-cicd-hadua2dxe6g2fcbc`
+- **Resource Group**: `Engenharia_de_Software`
+- **URL**: https://deploy-cicd-hadua2dxe6g2fcbc.eastus2-01.azurewebsites.net
+- **Subscription ID**: `012f0e50-fa82-4ade-a8f6-c82683e6cb90`
 
-URL: https://deploy-cicd-hadua2dxe6g2fcbc.eastus2-01.azurewebsites.net
+## 📋 Configuração Necessária
 
-## 2. Obter informações necessárias
+### 1. Obter o Publish Profile
 
-### Encontrar o Resource Group:
 1. Vá para o [Azure Portal](https://portal.azure.com)
-2. Procure por "Resource groups"
-3. Encontre o resource group onde está seu App Service
+2. Procure pelo seu App Service: `deploy-cicd-hadua2dxe6g2fcbc`
+3. No menu lateral esquerdo, clique em **Get publish profile**
+4. Baixe o arquivo `.PublishSettings`
+5. Abra o arquivo com um editor de texto
+6. **Copie TODO o conteúdo XML** (é um arquivo grande com várias linhas)
 
-### Obter Subscription ID:
-1. No Azure Portal, vá para "Subscriptions"
-2. Copie o Subscription ID
-
-## 3. Criar Service Principal para GitHub Actions
-
-Abra o Azure CLI (ou Azure Cloud Shell) e execute:
-
-```bash
-# Substitua pelos seus valores
-SUBSCRIPTION_ID="your-subscription-id"
-RESOURCE_GROUP="your-resource-group-name"
-
-az ad sp create-for-rbac \
-  --name "GitHubActionsDeploy-FlaskApp" \
-  --role contributor \
-  --scopes "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP" \
-  --sdk-auth
-```
-
-**Importante**: Copie TODO o output JSON retornado pelo comando acima.
-
-## 4. Configurar Secrets no GitHub
+### 2. Configurar Secret no GitHub
 
 1. Vá para seu repositório no GitHub
 2. Clique em **Settings** > **Secrets and variables** > **Actions**
-3. Clique em **New repository secret** e adicione:
+3. Clique em **New repository secret**
+4. Configure:
+   - **Name**: `AZURE_WEBAPP_PUBLISH_PROFILE`
+   - **Value**: Cole o conteúdo XML completo do arquivo .PublishSettings
 
-### AZURE_CREDENTIALS
-- **Name**: `AZURE_CREDENTIALS`
-- **Value**: Cole o JSON completo retornado pelo comando `az ad sp create-for-rbac`
+### 3. Testar o Deploy
 
-### AZURE_RESOURCE_GROUP
-- **Name**: `AZURE_RESOURCE_GROUP`
-- **Value**: Nome do seu resource group (ex: `my-resource-group`)
-
-### AZURE_WEBAPP_PUBLISH_PROFILE
-- **Name**: `AZURE_WEBAPP_PUBLISH_PROFILE`
-- **Value**: Obtenha do Azure Portal:
-  1. Vá para seu App Service
-  2. Clique em **Get publish profile**
-  3. Abra o arquivo .PublishSettings baixado
-  4. Copie o conteúdo do perfil (é um XML)
-
-## 5. Verificar configuração
-
-Após configurar todos os secrets, faça um push para a branch `main` para testar o deploy:
+Após configurar o secret, faça push para a branch main:
 
 ```bash
 git push origin main
@@ -69,36 +39,25 @@ git push origin main
 
 Monitore o workflow em **Actions** no GitHub.
 
-## Troubleshooting
+## 🐛 Troubleshooting
 
-### Erro: "Service principal not found"
-- Verifique se o JSON do `AZURE_CREDENTIALS` está correto
-- Certifique-se de que o service principal não foi excluído
+### Erro: "Publish profile is invalid"
+- Verifique se copiou TODO o conteúdo do arquivo .PublishSettings
+- Certifique-se de que não há quebras de linha extras no secret
+- Tente baixar o publish profile novamente do Azure Portal
 
-### Erro: "Resource group not found"
-- Verifique o nome do resource group no secret `AZURE_RESOURCE_GROUP`
+### Erro: "Deployment Failed"
+- Verifique se o nome do App Service no workflow está correto: `deploy-cicd-hadua2dxe6g2fcbc`
+- Certifique-se de que o App Service está no estado "Running"
 
-### Erro: "Web app not found"
-- Verifique se o nome do app service no workflow está correto
-- Certifique-se de que o service principal tem permissões no resource group
+### Verificar se o App Service está funcionando:
+1. Vá para o Azure Portal
+2. Procure pelo App Service `deploy-cicd-hadua2dxe6g2fcbc`
+3. Verifique se está "Running" e não há erros
 
-### Erro: "Publish profile invalid"
-- Baixe novamente o publish profile do Azure Portal
-- Certifique-se de que está copiando o XML completo
+## ✅ Próximos Passos
 
-## Comandos úteis para debug
-
-### Verificar se o service principal existe:
-```bash
-az ad sp list --display-name "GitHubActionsDeploy-FlaskApp"
-```
-
-### Verificar permissões do service principal:
-```bash
-az role assignment list --assignee <service-principal-id>
-```
-
-### Testar login com service principal:
-```bash
-az login --service-principal -u <client-id> -p <client-secret> --tenant <tenant-id>
-```
+1. Configure o secret `AZURE_WEBAPP_PUBLISH_PROFILE`
+2. Faça push do código
+3. Monitore o deploy em GitHub Actions
+4. Teste a aplicação na URL: https://deploy-cicd-hadua2dxe6g2fcbc.eastus2-01.azurewebsites.net
