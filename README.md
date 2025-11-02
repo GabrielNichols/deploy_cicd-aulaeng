@@ -139,3 +139,18 @@ URL do App Service: https://deploy-cicd-hadua2dxe6g2fcbc.eastus2-01.azurewebsite
      "test": "Hello from Postman"
    }
    ```
+
+## 🧪 Testando com Postman
+
+Para facilitar os testes da API, foram criadas coleções completas do Postman:
+
+- **📁 Pasta**: `postman/`
+- **📋 Coleção**: `postman/postman_collection.json`
+- **🌐 Environment Produção**: `postman/postman_environment_production.json`
+- **🏠 Environment Local**: `postman/postman_environment_local.json`
+- **📖 Documentação**: `postman/POSTMAN_README.md`
+
+### Como usar:
+1. Importe os arquivos na pasta `postman/` no Postman
+2. Selecione o environment apropriado (produção/local)
+3. Execute os testes automaticamente ou manualmente
